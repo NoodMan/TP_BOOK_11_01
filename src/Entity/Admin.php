@@ -3,20 +3,19 @@
 namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
- /** @ORM\Entity*/
+ /** @ORM\Entity */
 
 
 final class Admin extends Member{
 
     /* @ORM\Column(type="integer")*/
+    
     private int $level;
 
-    public function __construct(int $serviceID, string $firstname, string $lastname, int $age, string $email, int $level){ 
+    public function __construct(int $serviceID, string $firstname, string $lastname, int $age, string $mail, int $level){ 
 
-        parent::__construct ($serviceID, $firstname, $lastname);
+        parent::__construct ($serviceID, $firstname, $lastname, $age, $mail);
         
-        $this->age = $age;
-        $this->email = $email;
         $this->level = $level;
     }
 

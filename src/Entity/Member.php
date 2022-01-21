@@ -5,9 +5,11 @@ namespace App\Entity;
 use App\Interfaces\UserInter;
 use Doctrine\ORM\Mapping as ORM;
 
-/** @ORM\@MappedSuperclass */
+/** @ORM\MappedSuperclass 
+ *  @ORM\Table(name="Member",uniqueConstraints={@ORM\UniqueConstraint(columns= {"mail"})})
+*/
 
-abstract class Member implements UserInter{
+abstract class Member implements UserInter {
 
     // @ORM\Id avec la classe de typage Id; précise que la propriété $id sera une clé primaire
     // @ORM\GeneratedValue avec la classe de typage GeneratedValue; précise que la colonne id sera de type AUTO_INCREMENT
@@ -26,22 +28,25 @@ abstract class Member implements UserInter{
     private int $serviceID;
 
     /** @ORM\Column(length=100) */
-    private string $firstname; //p
+    protected string $firstname; //p
 
     /** @ORM\Column(length=100) */
-    private string $lastname; //n
+    protected string $lastname; //n
 
-    /** @ORM\Column(type="integer", length=3) */
+    /** @ORM\Column(type="smallint")*/
     private int $age; 
 
-    /** @ORM\Column(length=150) */
+    /** @ORM\Column(length=150)*/
     private string $mail;
 
 
-    public function __construct (int $s, string $f, string $l){ //void ne retourne rien
+    public function __construct (int $s, string $f, string $l, int $a, string $m){ 
+        
         $this->serviceID = $s;
         $this->firstname = $f;
         $this->lastname = $l;
+        $this->age = $a;
+        $this->mail = $m;
         
     }
 
@@ -71,7 +76,7 @@ abstract class Member implements UserInter{
     }
 
     public function getEmail(): string {
-        return $this->email;
+        return $this->mail;
     }
 
     public function getArticles(): array {
@@ -85,7 +90,12 @@ abstract class Member implements UserInter{
         $this->serviceID = $newServiceID;
         return $this;
     }
-
+    public function __toString(){
+        // to show the name of the Category in the select
+        return $this->firstname;
+        // to show the id of the Category in the select
+        // return $this->id;
+    }
 
     /**
      * Get the value of id
@@ -107,6 +117,30 @@ abstract class Member implements UserInter{
     public function setId(int $id): self
     {
         $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of mail
+     *
+     * @return string
+     */
+    public function getMail(): string
+    {
+        return $this->mail;
+    }
+
+    /**
+     * Set the value of mail
+     *
+     * @param string $mail
+     *
+     * @return self
+     */
+    public function setMail(string $mail): self
+    {
+        $this->mail = $mail;
 
         return $this;
     }

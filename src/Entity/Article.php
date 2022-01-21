@@ -25,12 +25,16 @@ final class Article {
     /** @ORM\Column(length=255) */
     private string $contents;
 
-    /** @ORM\Column(length=150) */
-    private string $author;
+    /** 
+     * @ORM\ManyToOne(targetEntity="Member")
+     * @ORM\JoinColumn (name="FK_id_member", referencedColumnName="id")
+    */
+    private User | Admin $author;
 
-    public function __construct(string $title, Member $author){ //parametre
+    public function __construct(string $title, User | Admin $author, string $content){ //parametre
         $this->title = $title;
         $this->author = $author; //propriete de l'objet (instance)
+        $this->contents = $content;
     }
 
     public function getID(): string{
@@ -62,4 +66,7 @@ final class Article {
         return $this->author = $newAuthor;
         return $this;
     }
+
+   
 }
+

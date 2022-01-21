@@ -18,10 +18,10 @@ $config = Setup::createAnnotationMetadataConfiguration(array(__DIR__."/src/Entit
 // database configuration parameters
 $conn = array(
     'driver' => 'pdo_mysql',
-    'user'     => 'root',
-    'password' => 'root',
-    'dbname'   => 'BOOK_POO',
-    'host'     => 'localhost'
+    'user'     => '106139_nood',
+    'password' => 'hottak-ceXgoq-qopse6',
+    'dbname'   => 'pawolanmwen_nood',
+    'host'     => 'mysql-pawolanmwen.alwaysdata.net',
     
 );
 
