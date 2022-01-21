@@ -97,7 +97,7 @@ $router->put("/Article/:id", "App\Controllers\BLogController@show");
 $router->put("/Member/", "App\Controllers\BLogController@modify");
 
 $router->get("/User/:id", "App\Controllers\UserController@modify"); // modifier User
-$router->put("/User/", "App\Controllers\UserController@modify"); 
+$router->post("/User/:id", "App\Controllers\UserController@modify"); 
 
 $router->delete("/Admin/", "App\Controllers\BLogController@delete"); //postman
 $router->delete("/Article/:id", "App\Controllers\BLogController@delete");

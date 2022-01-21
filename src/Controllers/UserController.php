@@ -92,9 +92,31 @@ class UserController
 
 
 
-    public function modify()
+    public function modify(string $id)
     {
         echo "test pour voir si cela fonctionne";
+
+            $entityManager = EH::getRequireEntityManager();
+            $Userrepository = new EntityRepository($entityManager, new ClassMetadata("App\Entity\User"));
+
+            $user = $Userrepository->find($id);
+
+            $userData = [];
+
+            foreach (self::NEEDLES as $value){
+                $getteur = "get".ucfirst($value);
+                if($value=== "personal_data"){
+                    $getteur = "getPersonnalData";
+                }
+                $userData[$value] = $user->$getteur();
+
+                $userData["id"] = $user->getId();
+                $_SESSION["userData"] = $userData;
+                
+                header("location: http://localhost:8888/src/vues/modifyUser.php");
+                
+            }
+
         
 
     }
@@ -102,5 +124,8 @@ class UserController
     public function delete()
     {
         echo "test page de suppression ";
+
+
+        
     }
 }
