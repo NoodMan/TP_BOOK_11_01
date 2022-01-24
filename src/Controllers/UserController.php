@@ -109,8 +109,10 @@ class UserController
             foreach (self::NEEDLES as $value){
                 if (!array_key_exists($value,$_POST)){
                     $_SESSION["error"] = "Il manque des champs à remplir";
-
+                }
                     $_POST[$value] = htmlentities(strip_tags( $_POST[$value]));
+
+                }
 
                     $user->setServiceID((int)$_POST["serviceID"]);
                     $user->setFirstname($_POST["firstname"]);
@@ -119,24 +121,29 @@ class UserController
                     $user->setEmail($_POST["mail"]);
                     $user->setPersonal_data((int)$_POST["personal_data"]);
                   
-                
+                    $entityManager->persist($user);
+                    $entityManager->flush();
 
-
-                if($value=== "personal_data"){
-                   $getteur = "getPersonalData";
-               }
-            }
-               $userData[$value] = $user->$getteur();
+                }
                 
                 $userData["id"] = $user->getId();
                 $_SESSION["userData"] = $userData;
+
+                foreach (self::NEEDLES as $value){
+                    $getteur = "get". ucfirst($value);
+                    if($value=== "personal_data"){
+                    $getteur = "getPersonalData";
+                }
+                
+                $userData[$value] = $user->$getteur();
+                
                 
                 header("location: http://localhost:8888/src/vues/modifyUser.php");
                 exit;
                 
            }
         }   
-    }
+    
 
 
     public function delete($id)
