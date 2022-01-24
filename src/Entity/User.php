@@ -26,6 +26,11 @@ class User extends Member
         return $this->personal_data;
     }
 
+    public function setPersonal_data(string $newPersonal_data): self{
+        $this->personal_data = $newPersonal_data;
+        return $this;
+    }
+
     public function getFullName(): string
     {
         return $this->firstname ." ". $this->lastname;

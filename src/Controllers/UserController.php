@@ -64,6 +64,7 @@ class UserController
 
     public function add() //ajout article methode post
     {
+        
         foreach (self::NEEDLES as $value) {
             if (!array_key_exists($value, $_POST)) {
                 $_SESSION["error"] = "Il manque des champs à remplir";
@@ -77,7 +78,7 @@ class UserController
 
 
 
-        $user = new User( (int) $_POST["serviceID"], $_POST["firstname"], $_POST["lastname"], (int) $_POST["age"], $_POST["mail"], (int) $_POST["personal_data"]);
+        $user = new User((int) $_POST["serviceID"], $_POST["firstname"], $_POST["lastname"], (int) $_POST["age"], $_POST["mail"], (int) $_POST["personal_data"]);
 
         $entityManager = EH::getRequireEntityManager();
         $entityManager->persist($user);
@@ -103,13 +104,28 @@ class UserController
             $user = $Userrepository->find($id);
 
         
-        
+        if (!empty($_POST)){
             
             foreach (self::NEEDLES as $value){
-                $getteur = "get".ucfirst($value);
+                if (!array_key_exists($value,$_POST)){
+                    $_SESSION["error"] = "Il manque des champs à remplir";
+
+                    $_POST[$value] = htmlentities(strip_tags( $_POST[$value]));
+
+                    $user->setServiceID((int)$_POST["serviceID"]);
+                    $user->setFirstname($_POST["firstname"]);
+                    $user->setLastname($_POST["lastname"]);
+                    $user->setAge((int)$_POST["Age"]);
+                    $user->setEmail($_POST["mail"]);
+                    $user->setPersonal_data((int)$_POST["personal_data"]);
+                  
+                
+
+
                 if($value=== "personal_data"){
                    $getteur = "getPersonalData";
                }
+            }
                $userData[$value] = $user->$getteur();
                 
                 $userData["id"] = $user->getId();
@@ -119,7 +135,7 @@ class UserController
                 exit;
                 
            }
-          
+        }   
     }
 
 
@@ -136,3 +152,5 @@ class UserController
 
     }
 
+
+   

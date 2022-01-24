@@ -64,6 +64,7 @@ class AdminController
 
     public function add() //ajout article methode post
     {
+      //  if (!empty($_POST)) Me casse mon code
         foreach (self::NEEDLES as $value) {
             if (!array_key_exists($value, $_POST)) {
                 $_SESSION["error"] = "Il manque des champs à remplir";
@@ -77,7 +78,7 @@ class AdminController
 
 
 
-        $admin = new Admin( (int) $_POST["serviceID"], $_POST["firstname"], $_POST["lastname"], (int) $_POST["age"], $_POST["mail"], (int) $_POST["level"]);
+        $admin = new Admin((int) $_POST["serviceID"], $_POST["firstname"], $_POST["lastname"], (int) $_POST["age"], $_POST["mail"], (int) $_POST["level"]);
 
         $entityManager = EH::getRequireEntityManager();
         $entityManager->persist($admin);
