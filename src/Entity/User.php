@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /** @ORM\Entity */
 
 
-final class User extends Member  
+class User extends Member  
 {
 
   /** @ORM\Column(type="integer") */

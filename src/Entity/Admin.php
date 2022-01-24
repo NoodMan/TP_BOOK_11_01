@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
  /** @ORM\Entity */
 
 
-final class Admin extends Member{
+class Admin extends Member{
 
     /* @ORM\Column(type="integer")*/
     
