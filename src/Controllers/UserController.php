@@ -88,23 +88,17 @@ class UserController
 
 
         header("location: http://localhost:8888/src/vues/addUser.php");
-        
     }
 
 
 
 
 
-    public function modify(string $id)
-
-    {
-       
+    public function modify(string $id){
 
         $entityManager = EH::getRequireEntityManager();
         $Userrepository = new EntityRepository($entityManager, new ClassMetadata("App\Entity\User"));
-
         $user = $Userrepository->find($id);
-
 
         if (!empty($_POST)) { // pour verifier si existe valeur comme isset
 
@@ -130,21 +124,21 @@ class UserController
         $userData = [];
         $_SESSION["userData"] = $userData;
 
-      //  foreach (self::NEEDLES as $value) {
-       //     $getteur = "get" . ucfirst($value); // pour mettre en Maj 
-      //      if ($value === "personal_data") {
-      //          $getteur = "getPersonalData";
-     //       }
+        foreach (self::NEEDLES as $value) {
+            $getteur = "get" . ucfirst($value); // pour mettre en Maj 
+            if ($value === "personal_data") {
+                $getteur = "getPersonalData";
+            }
 
-    //        $userData[$value] = $user->$getteur(); 
-    //    }
-    //    $_SESSION["userData"] = $userData;
-
-
-            header("location: http://localhost:8888/src/vues/modifyUser.php");
-            exit;
+            $userData[$value] = $user->$getteur();
         }
-    
+        $_SESSION["userData"] = $userData;
+
+
+        header("location: http://localhost:8888/src/vues/modifyUser.php");
+        exit;
+    }
+
 
 
 
