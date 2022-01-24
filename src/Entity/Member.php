@@ -5,11 +5,14 @@ namespace App\Entity;
 use App\Interfaces\UserInter;
 use Doctrine\ORM\Mapping as ORM;
 
-/** @ORM\MappedSuperclass 
+/** @ORM\Entity
+ * @ORM\InheritanceType("SINGLE_TABLE")
+ * @ORM\DiscriminatorColumn(name="discr", type="string")
+ * @ORM\DiscriminatorMap({"Admin" = "Admin", "User" = "User"})
  *  @ORM\Table(name="Member",uniqueConstraints={@ORM\UniqueConstraint(columns= {"mail"})})
 */
 
-abstract class Member implements UserInter {
+class Member  {
 
     // @ORM\Id avec la classe de typage Id; précise que la propriété $id sera une clé primaire
     // @ORM\GeneratedValue avec la classe de typage GeneratedValue; précise que la colonne id sera de type AUTO_INCREMENT
