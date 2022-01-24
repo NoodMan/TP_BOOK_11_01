@@ -1,12 +1,14 @@
 <?php
 
 namespace App\Controllers;
+
 session_start();
 
 use App\Entity\User;
 use App\Helpers\EntityHelpers as EH;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Mapping\ClassMetadata;
+use App\Routes\Router;
 
 
 class UserController
@@ -64,16 +66,16 @@ class UserController
 
     public function add() //ajout article methode post
     {
-        
+
         foreach (self::NEEDLES as $value) {
             if (!array_key_exists($value, $_POST)) {
                 $_SESSION["error"] = "Il manque des champs à remplir";
-                
+
                 header("location: http://localhost:8888/src/vues/addUser.php");
                 exit;
             }
 
-            $_POST[$value] = htmlentities(strip_tags( $_POST[$value]));
+            $_POST[$value] = htmlentities(strip_tags($_POST[$value]));
         }
 
 
@@ -93,71 +95,67 @@ class UserController
 
 
 
-   public function modify(string $id)
-    
+    public function modify(string $id)
+
     {
-        echo "test pour voir si cela fonctionne";
+       
 
-            $entityManager = EH::getRequireEntityManager();
-            $Userrepository = new EntityRepository($entityManager, new ClassMetadata("App\Entity\User"));
+        $entityManager = EH::getRequireEntityManager();
+        $Userrepository = new EntityRepository($entityManager, new ClassMetadata("App\Entity\User"));
 
-            $user = $Userrepository->find($id);
+        $user = $Userrepository->find($id);
 
-        
-        if (!empty($_POST)){
-            
-            foreach (self::NEEDLES as $value){
-                if (!array_key_exists($value,$_POST)){
+
+        if (!empty($_POST)) { // pour verifier si existe valeur comme isset
+
+            foreach (self::NEEDLES as $value) {
+                if (!array_key_exists($value, $_POST)) {
                     $_SESSION["error"] = "Il manque des champs à remplir";
+                    exit;
                 }
-                    $_POST[$value] = htmlentities(strip_tags( $_POST[$value]));
+                $_POST[$value] = htmlentities(strip_tags($_POST[$value]));
+            }
 
-                }
+            $user->setServiceID((int)$_POST["serviceID"]);
+            $user->setFirstname($_POST["firstname"]);
+            $user->setLastname($_POST["lastname"]);
+            $user->setAge((int)$_POST["Age"]);
+            $user->setEmail($_POST["mail"]);
+            $user->setPersonal_data((int)$_POST["personal_data"]);
 
-                    $user->setServiceID((int)$_POST["serviceID"]);
-                    $user->setFirstname($_POST["firstname"]);
-                    $user->setLastname($_POST["lastname"]);
-                    $user->setAge((int)$_POST["Age"]);
-                    $user->setEmail($_POST["mail"]);
-                    $user->setPersonal_data((int)$_POST["personal_data"]);
-                  
-                    $entityManager->persist($user);
-                    $entityManager->flush();
-
-                }
-                
-                $userData["id"] = $user->getId();
-                $_SESSION["userData"] = $userData;
-
-                foreach (self::NEEDLES as $value){
-                    $getteur = "get". ucfirst($value);
-                    if($value=== "personal_data"){
-                    $getteur = "getPersonalData";
-                }
-                
-                $userData[$value] = $user->$getteur();
-                
-                
-                header("location: http://localhost:8888/src/vues/modifyUser.php");
-                exit;
-                
-           }
-        }   
-    
-
-
-    public function delete($id)
-{
-            $entityManager = EH::getRequireEntityManager();
-            $repository = new EntityRepository($entityManager, new ClassMetadata("App\Entity\User"));
-
-            $user = $repository->find($id);
-            
             $entityManager->persist($user);
             $entityManager->flush();
         }
 
+        $userData = [];
+        $_SESSION["userData"] = $userData;
+
+      //  foreach (self::NEEDLES as $value) {
+       //     $getteur = "get" . ucfirst($value); // pour mettre en Maj 
+      //      if ($value === "personal_data") {
+      //          $getteur = "getPersonalData";
+     //       }
+
+    //        $userData[$value] = $user->$getteur(); 
+    //    }
+    //    $_SESSION["userData"] = $userData;
+
+
+            header("location: http://localhost:8888/src/vues/modifyUser.php");
+            exit;
+        }
+    
+
+
+
+    public function delete($id)
+    {
+        $entityManager = EH::getRequireEntityManager();
+        $repository = new EntityRepository($entityManager, new ClassMetadata("App\Entity\User"));
+
+        $user = $repository->find($id);
+
+        $entityManager->persist($user);
+        $entityManager->flush();
     }
-
-
-   
+}

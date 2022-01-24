@@ -7,6 +7,7 @@ use App\Entity\Admin;
 use App\Helpers\EntityHelpers as EH;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Mapping\ClassMetadata;
+use App\Routes\Router;
 
 
 class AdminController
