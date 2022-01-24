@@ -92,9 +92,9 @@ $router->post("/User/", "App\Controllers\UserController@add"); //Ajout User
 $router->get("/User/", "App\Controllers\UserController@add");
 
 
-$router->put("/Admin/", "App\Controllers\BLogController@modify"); //postman
-$router->put("/Article/:id", "App\Controllers\BLogController@show");
-$router->put("/Member/", "App\Controllers\BLogController@modify");
+//$router->put("/Admin/", "App\Controllers\BLogController@modify"); //postman
+//$router->put("/Article/:id", "App\Controllers\BLogController@show");
+//$router->put("/Member/", "App\Controllers\BLogController@modify");
 
 $router->get("/User/:id", "App\Controllers\UserController@modify"); // modifier User
 $router->post("/User/:id", "App\Controllers\UserController@modify"); 
@@ -102,6 +102,9 @@ $router->post("/User/:id", "App\Controllers\UserController@modify");
 $router->delete("/Admin/", "App\Controllers\BLogController@delete"); //postman
 $router->delete("/Article/:id", "App\Controllers\BLogController@delete");
 $router->delete("/Member/", "App\Controllers\BLogController@delete");
-$router->delete("/User/", "App\Controllers\BLogController@delete");
+
+
+$router->get("/User/:id", "App\Controllers\UserController@delete");
+$router->delete("/User/:id", "App\Controllers\UserController@delete");//suppression
 
 $router->run(); // pour verifier si les routes match

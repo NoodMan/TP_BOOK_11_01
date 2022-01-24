@@ -11,7 +11,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page modify d'un User</title>
+    <title>Page suppression d'un User</title>
 </head>
 
 <body>
@@ -27,7 +27,7 @@
     $id = isset($_SESSION["userData"]["id"]) ? $_SESSION["userData"]["id"] : "";
     ?>
 
-    <form action=<?="/User/$id"?> method="POST" id="form_controller">
+    <form action=<?="/User/$id"?> method="DELETE" id="form_controller">
 
 
         <label for="serviceID">Service ID: </label>
@@ -41,7 +41,8 @@
                 : "";
                 ?>" 
                 />
-
+                
+    
         <label for="firstname">Firstname: </label>
         <input 
             type="text" 
@@ -95,15 +96,14 @@
             type="text" 
             name="personal_data" 
             id="personal_data"
-            value="<?php 
-            var_dump($personal_data);
+            value="<?php            
                 echo isset($_SESSION['userData']['personal_data']) 
                 ? $_SESSION['userData']['personal_data']
                 : "";
                 ?>" 
                 />
 
-        <input type="submit" value="ENREGISTRER LES MODIFICATIONS">
+        <input type="submit" value="supp LES datas">
     </form>
 </body>
 

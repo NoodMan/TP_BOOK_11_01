@@ -67,6 +67,7 @@ class UserController
         foreach (self::NEEDLES as $value) {
             if (!array_key_exists($value, $_POST)) {
                 $_SESSION["error"] = "Il manque des champs à remplir";
+                
                 header("location: http://localhost:8888/src/vues/addUser.php");
                 exit;
             }
@@ -91,8 +92,8 @@ class UserController
 
 
 
-
-    public function modify(string $id)
+   public function modify(string $id)
+    
     {
         echo "test pour voir si cela fonctionne";
 
@@ -101,31 +102,37 @@ class UserController
 
             $user = $Userrepository->find($id);
 
-            $userData = [];
-
+        
+        
+            
             foreach (self::NEEDLES as $value){
                 $getteur = "get".ucfirst($value);
                 if($value=== "personal_data"){
-                    $getteur = "getPersonnalData";
-                }
-                $userData[$value] = $user->$getteur();
-
+                   $getteur = "getPersonalData";
+               }
+               $userData[$value] = $user->$getteur();
+                
                 $userData["id"] = $user->getId();
                 $_SESSION["userData"] = $userData;
                 
                 header("location: http://localhost:8888/src/vues/modifyUser.php");
+                exit;
                 
-            }
+           }
+          
+    }
 
-        
+
+    public function delete($id)
+{
+            $entityManager = EH::getRequireEntityManager();
+            $repository = new EntityRepository($entityManager, new ClassMetadata("App\Entity\User"));
+
+            $user = $repository->find($id);
+            
+            $entityManager->persist($user);
+            $entityManager->flush();
+        }
 
     }
 
-    public function delete()
-    {
-        echo "test page de suppression ";
-
-
-        
-    }
-}
