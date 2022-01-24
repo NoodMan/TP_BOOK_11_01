@@ -31,7 +31,7 @@ class BLogController
         echo "Ceci est un test pour voir si cela fonctionne";
     }
 
-    public function add()
+    public function addn()
     {
         require_once('bootstrap.php');
 

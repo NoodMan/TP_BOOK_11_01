@@ -82,7 +82,7 @@ $router->get("/Article/", "App\Controllers\BLogController@index");
 $router->get("/Member/:id", "App\Controllers\UserController@show");
 $router->get("/User/:id", "App\Controllers\UserController@show");
 
-$router->post("/Admin/", "App\Controllers\BLogController@add"); //postman
+//$router->post("/Admin/", "App\Controllers\BLogController@add"); //postman
 $router->post("/Article/", "App\Controllers\BLogController@index");
 $router->post("/Member/", "App\Controllers\BLogController@add");
 $router->post("/User/:id", "App\Controllers\UserController@show");
@@ -90,6 +90,9 @@ $router->post("/User/:id", "App\Controllers\UserController@show");
 
 $router->post("/User/", "App\Controllers\UserController@add"); //Ajout User
 $router->get("/User/", "App\Controllers\UserController@add");
+
+$router->post("/Admin/", "App\Controllers\AdminController@add"); //Ajout Admin
+$router->get("/Admin/", "App\Controllers\AdminController@add");
 
 
 //$router->put("/Admin/", "App\Controllers\BLogController@modify"); //postman
