@@ -84,7 +84,7 @@ $router->get("/User/:id", "App\Controllers\UserController@show");
 
 //$router->post("/Admin/", "App\Controllers\BLogController@add"); //postman
 $router->post("/Article/", "App\Controllers\BLogController@index");
-$router->post("/Member/", "App\Controllers\BLogController@add");
+//$router->post("/Member/", "App\Controllers\BLogController@add");
 $router->post("/User/:id", "App\Controllers\UserController@show");
 
 
@@ -102,9 +102,12 @@ $router->get("/Admin/", "App\Controllers\AdminController@add");
 $router->get("/User/:id", "App\Controllers\UserController@modify"); // modifier User
 $router->post("/User/:id", "App\Controllers\UserController@modify"); 
 
-$router->delete("/Admin/", "App\Controllers\BLogController@delete"); //postman
-$router->delete("/Article/:id", "App\Controllers\BLogController@delete");
-$router->delete("/Member/", "App\Controllers\BLogController@delete");
+$router->get("/Admin/:id", "App\Controllers\AdminController@modify"); //Modifier Admin
+$router->post("/Admin/:id", "App\Controllers\AdminController@modify"); 
+
+//$router->delete("/Admin/", "App\Controllers\BLogController@delete"); //postman
+//$router->delete("/Article/:id", "App\Controllers\BLogController@delete");
+//$router->delete("/Member/", "App\Controllers\BLogController@delete");
 
 
 $router->get("/User/:id", "App\Controllers\UserController@delete");
