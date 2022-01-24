@@ -130,7 +130,6 @@ class UserController
                 $getteur = "getPersonalData";
             }
 
-            $userData[$value] = $user->$getteur();
         }
         $_SESSION["userData"] = $userData;
 

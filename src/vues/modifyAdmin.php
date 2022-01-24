@@ -44,7 +44,7 @@
  $id = isset($_SESSION["adminData"]["id"]) ? $_SESSION["adminData"]["id"] : "";
  
  ?>
-    <form action=<?="/Admin/$id"?> method="POST" id="form_controller">
+ <form action=<?="/Admin/$id"?> method="POST" id="form_controller">
         
         
         <label for="serviceID">Service ID: </label>

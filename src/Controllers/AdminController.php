@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Controllers;
-session_start();
+
 
 use App\Entity\Admin;
 use App\Helpers\EntityHelpers as EH;
@@ -104,12 +104,24 @@ class AdminController
 
             $admin = $Adminrepository->find($id);
 
-    
+    if (!empty($_POST["firstname"])){
+        $firstname = strip_tags($_POST["firstname"]);
+        if (trim($_POST["firstname"]) === ""){
+
+            $error = "Le champ doit être remplie";
+            echo $error;
+            die();
+        }
+       
+        $admin->setFirstname($firstname);
+
+        $entityManager->persist($admin);
+        $entityManager->flush();
+
+    }
+
                 
-                $adminData["id"] = $admin->getId();
-                $_SESSION["adminData"] = $adminData;
-                
-                header("location: http://localhost:8888/src/vues/modifyAdmin.php");
+                include __DIR__."/../vues/modifyAdmin.php";
                 exit;
                 
            }
