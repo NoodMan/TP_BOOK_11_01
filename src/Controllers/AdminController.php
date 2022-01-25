@@ -95,12 +95,10 @@ class AdminController
         $entityManager = EH::getRequireEntityManager();
         $repository = new EntityRepository($entityManager, new ClassMetadata("App\Entity\Admin"));
 
-        $oAdmin = $repository->find((int) $id);
+        $admin = $repository->find((int) $id);
 
         if (!empty($_POST)) {
             foreach (self::NEEDLES as $value) {
-                //var_dump($_POST);
-                //die("toto");
                 $existe = array_key_exists($value, $_POST);
                 if ($existe === false) {
                     echo "Des paramètres sont manquant";
@@ -117,7 +115,7 @@ class AdminController
                 }
             }
 
-            $admin->setServiceID((int)$_POST["serviceID"]);
+            $admin->setServiceID((int)$_POST["serviceId"]);
             $admin->setFirstname($_POST["firstname"]);
             $admin->setLastname($_POST["lastname"]);
             $admin->setAge((int)$_POST["Age"]);

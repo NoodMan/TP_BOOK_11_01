@@ -28,32 +28,32 @@
 
 <body>
 
-<form method="POST" action=<?="/Admin/$id"?> id="form_controller">
+    <form method="POST" action=<?= "/Admin/$id" ?> id="form_controller">
 
         <label for="serviceId">Service Id: </label>
-        <input name="serviceId" type="int" class="radius" value="<?= $admin->getServiceID() ?>" required/>                                                                           
+        <input name="serviceId" type="int" class="radius" value="<?= $admin->getServiceID() ?>" required />
 
 
         <label for="firstname">Firstname: </label>
         <input type="text" name="firstname" id="firstname" class="radius" value="<?= $admin->getFirstname() ?>" required />
-                                                                                   
+
 
         <label for="lastname">Lastname: </label>
         <input type="text" name="lastname" id="lastname" class="radius" value="<?= $admin->getLastname() ?>" required />
-                                                                               
+
 
         <label for="age">Age: </label>
         <input type="text" name="age" id="age" class="radius" value="<?= $admin->getAge() ?>" required />
-                                                                       
+
 
         <label for="mail">Mail: </label>
         <input type="text" name="mail" id="mail" class="radius" value="<?= $admin->getEmail() ?>" required />
-                                                                       
+
 
         <label for="level">Level: </label>
         <input type="text" name="level" id="level" class="radius" value="<?= $admin->getLevel() ?>" required />
 
-                                                                            
+
         ====>
 
         <input type="submit" class="radius" value="ENREGISTRER LES MODIFICATIONS">
