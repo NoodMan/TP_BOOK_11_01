@@ -15,7 +15,7 @@ class UserController
 {
 
     const NEEDLES = [ // pour le foreach de l'user
-        "serviceID",
+        "serviceId",
         "firstname",
         "lastname",
         "age",
@@ -66,8 +66,11 @@ class UserController
 
     public function add() //ajout article methode post
     {
-
+        
         foreach (self::NEEDLES as $value) {
+            if (!empty($_POST)){
+                include __DIR__ . "/../vues/modifyAdmin.php";
+            }
             if (!array_key_exists($value, $_POST)) {
                 $_SESSION["error"] = "Il manque des champs à remplir";
 
@@ -77,8 +80,6 @@ class UserController
 
             $_POST[$value] = htmlentities(strip_tags($_POST[$value])); //Convertit tous les caractères éligibles en entités HTML
         }
-
-
 
         $user = new User((int) $_POST["serviceID"], $_POST["firstname"], $_POST["lastname"], (int) $_POST["age"], $_POST["mail"], (int) $_POST["personal_data"]);
 
@@ -91,64 +92,104 @@ class UserController
     }
 
 
-
-
-
-    public function modify(string $id){
-
-        $entityManager = EH::getRequireEntityManager();
-        $Userrepository = new EntityRepository($entityManager, new ClassMetadata("App\Entity\User"));
-        $user = $Userrepository->find($id);
-
-        if (!empty($_POST)) { // pour verifier si existe valeur comme isset
-
-            foreach (self::NEEDLES as $value) {
-                if (!array_key_exists($value, $_POST)) {
-                    $_SESSION["error"] = "Il manque des champs à remplir";
-                    exit;
-                }
-                $_POST[$value] = htmlentities(strip_tags($_POST[$value]));
-            }
-
-            $user->setServiceID((int)$_POST["serviceID"]);
-            $user->setFirstname($_POST["firstname"]);
-            $user->setLastname($_POST["lastname"]);
-            $user->setAge((int)$_POST["Age"]);
-            $user->setEmail($_POST["mail"]);
-            $user->setPersonal_data((int)$_POST["personal_data"]);
-
-            $entityManager->persist($user);
-            $entityManager->flush();
-        }
-
-        $userData = [];
-        $_SESSION["userData"] = $userData;
-
-        foreach (self::NEEDLES as $value) {
-            $getteur = "get" . ucfirst($value); // pour mettre en Maj 
-            if ($value === "personal_data") {
-                $getteur = "getPersonalData";
-            }
-
-        }
-        $_SESSION["userData"] = $userData;
-
-
-        header("location: http://localhost:8888/src/vues/modifyUser.php");
-        exit;
-    }
-
-
-
-
-    public function delete($id)
+    public function Modify(string $id)
     {
         $entityManager = EH::getRequireEntityManager();
         $repository = new EntityRepository($entityManager, new ClassMetadata("App\Entity\User"));
 
-        $user = $repository->find($id);
+        $user = $repository->find((int) $id);
 
-        $entityManager->persist($user);
-        $entityManager->flush();
+        if (!empty($_POST)) {
+            foreach (self::NEEDLES as $value) {
+                $existe = array_key_exists($value, $_POST);
+                if ($existe === false) {
+                    echo "Des paramètres sont manquant";
+                    include __DIR__ . "/../vues/modifyUser.php";
+                    die();
+                }
+
+                $_POST[$value] = trim(htmlentities(strip_tags($_POST[$value])));
+
+                if ($_POST[$value] === "") {
+                    echo "Il manque des champs...";
+                    include __DIR__ . "/../vues/modifyUser.php";
+                    die();
+                }
+            }
+
+            $user->setServiceID((int)$_POST["serviceId"]);
+            $user->setFirstname($_POST["firstname"]);
+            $user->setLastname($_POST["lastname"]);
+            $user->setAge((int)$_POST["age"]);
+            $user->setMail($_POST["mail"]);
+            $user->setPersonal_data((int)$_POST["personal_data"]);
+
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            echo "information(s) bien modifier";
+        }
+
+        include __DIR__ . "/../vues/modifyUser.php";
     }
 }
+
+// CODE QUI NE FONCTIONN PAS !!!
+
+//    public function modify(string $id){
+//
+//        $entityManager = EH::getRequireEntityManager();
+//        $Userrepository = new EntityRepository($entityManager, //new ClassMetadata("App\Entity\User"));
+//        $user = $Userrepository->find($id);
+//
+//        if (!empty($_POST)) { // pour verifier si existe valeur //comme isset
+//
+//            foreach (self::NEEDLES as $value) {
+//                if (!array_key_exists($value, $_POST)) {
+//                    $_SESSION["error"] = "Il manque des champs à //remplir";
+//                    exit;
+//                }
+//                $_POST[$value] = htmlentities(strip_tags($_POST//[$value]));
+//            }
+//
+//            $user->setServiceID((int)$_POST["serviceID"]);
+//            $user->setFirstname($_POST["firstname"]);
+//            $user->setLastname($_POST["lastname"]);
+//            $user->setAge((int)$_POST["Age"]);
+//            $user->setEmail($_POST["mail"]);
+//            $user->setPersonal_data((int)$_POST["personal_data"]);
+//
+//            $entityManager->persist($user);
+//            $entityManager->flush();
+//        }
+//
+   //     $userData = [$user];
+   //     $_SESSION["userData"] = $userData;
+//
+   //     foreach (self::NEEDLES as $value) {
+   //         $getteur = "get" . ucfirst($value); // pour mettre en //Maj 
+   //         if ($value === "personal_data") {
+   //             $getteur = "getPersonalData";
+    //        }
+//
+    //    }
+    //    $_SESSION["userData"] = $userData;
+//
+//
+    //    header("location: http://localhost:8888/src/vues///modifyUser.php");
+    //    exit;
+    //}
+
+
+
+
+//    public function delete($id)
+//   {
+//        $repository = new EntityRepository($entityManager, new ClassMetadata("App\Entity\User"));
+
+//        $user = $repository->find($id);
+
+//       $entityManager->persist($user);
+//       $entityManager->flush();
+//  }
+// }

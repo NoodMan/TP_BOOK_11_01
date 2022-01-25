@@ -28,8 +28,8 @@ $router->post("/User/:id", "App\Controllers\UserController@modify");
 $router->get("/Admin/:id", "App\Controllers\AdminController@modify"); //Modifier Admin
 $router->post("/Admin/:id", "App\Controllers\AdminController@modify"); 
 
-$router->get("/User/:id", "App\Controllers\UserController@delete");
-$router->delete("/User/:id", "App\Controllers\UserController@delete");//suppression
+$router->get("/deleteUser/:id", "App\Controllers\UserController@delete");
+$router->post("/deleteUser/:id", "App\Controllers\UserController@delete");//suppression ne fonctionne pas 
 
 $router->run(); // pour verifier si les routes match
 

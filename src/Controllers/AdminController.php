@@ -13,7 +13,7 @@ use App\Routes\Router;
 class AdminController
 {
 
-    const NEEDLES = [ // pour le foreach de l'user
+    const NEEDLES = [ // pour le foreach de l'user )a mettre dans la class pour l'utiliser partout)
         "serviceID",
         "firstname",
         "lastname",
@@ -65,16 +65,17 @@ class AdminController
 
     public function add() //ajout article methode post
     {
-        //  if (!empty($_POST)) Me casse mon code
-        foreach (self::NEEDLES as $value) {
-            if (!array_key_exists($value, $_POST)) {
+        //  if (!empty($_POST)) Me casse mon code peux etre enleve le !
+        foreach (self::NEEDLES as $value) { // avant de faire le foreach crée une const NEEDLES
+            if (!array_key_exists($value, $_POST)) //$_POST Un tableau associatif 
+            {
                 $_SESSION["error"] = "Il manque des champs à remplir";
 
                 header("location: http://localhost:8888/src/vues/addAdmin.php");
                 exit;
             }
 
-            $_POST[$value] = htmlentities(strip_tags($_POST[$value]));
+            $_POST[$value] = htmlentities(strip_tags($_POST[$value])); //Convertit tous les caractères éligibles en entités HTML
         }
 
 
@@ -89,38 +90,45 @@ class AdminController
         header("location: http://localhost:8888/src/vues/addAdmin.php");
     }
 
-
-
-
-
-    public function modify(string $id)
-
+    public function Modify(string $id)
     {
-        echo "test pour voir si cela fonctionne";
-
         $entityManager = EH::getRequireEntityManager();
-        $Adminrepository = new EntityRepository($entityManager, new ClassMetadata("App\Entity\Admin"));
+        $repository = new EntityRepository($entityManager, new ClassMetadata("App\Entity\Admin"));
 
-        $admin = $Adminrepository->find($id);
+        $oAdmin = $repository->find((int) $id);
 
-        if (!empty($_POST["firstname"])) {
-            $firstname = strip_tags($_POST["firstname"]);
-            if (trim($_POST["firstname"]) === "") {
+        if (!empty($_POST)) {
+            foreach (self::NEEDLES as $value) {
+                //var_dump($_POST);
+                //die("toto");
+                $existe = array_key_exists($value, $_POST);
+                if ($existe === false) {
+                    echo "Des paramètres sont manquant";
+                    include __DIR__ . "/../vues/modifyAdmin.php";
+                    die();
+                }
 
-                $error = "Le champ doit être remplie";
-                echo $error;
-                die();
+                $_POST[$value] = trim(htmlentities(strip_tags($_POST[$value])));
+
+                if ($_POST[$value] === "") {
+                    echo "Il manque des champs...";
+                    include __DIR__ . "/../vues/modifyAdmin.php";
+                    die();
+                }
             }
 
-            $admin->setFirstname($firstname);
+            $admin->setServiceID((int)$_POST["serviceID"]);
+            $admin->setFirstname($_POST["firstname"]);
+            $admin->setLastname($_POST["lastname"]);
+            $admin->setAge((int)$_POST["Age"]);
+            $admin->setEmail($_POST["mail"]);
+            $admin->setLevel((int)$_POST["level"]);
 
             $entityManager->persist($admin);
             $entityManager->flush();
         }
 
-
         include __DIR__ . "/../vues/modifyAdmin.php";
-        exit;
     }
 
 

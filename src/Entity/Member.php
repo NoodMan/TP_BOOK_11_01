@@ -89,7 +89,7 @@ class Member  {
         return $this->serviceID;
     }
 
-    public function setService(int $newServiceID): self {
+    public function setServiceID(int $newServiceID): self {
         $this->serviceID = $newServiceID;
         return $this;
     }
