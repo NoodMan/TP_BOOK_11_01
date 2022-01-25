@@ -103,7 +103,7 @@
                 ?>" 
                 />
 
-        <input type="submit" value="supp LES datas">
+        <input type="submit" value="SUPPRIMER LES DONNEES">
     </form>
 </body>
 

@@ -30,7 +30,7 @@ class UserController
         $entityManager = EH::getRequireEntityManager();
         $repository = new EntityRepository($entityManager, new ClassMetadata("App\Entity\User"));
         $oUser = $repository->find((int) $id);
-        print($oUser->getFullName());
+        //print($oUser->getFullName());
         //var_dump($oUser);
         //die();
 
@@ -75,7 +75,7 @@ class UserController
                 exit;
             }
 
-            $_POST[$value] = htmlentities(strip_tags($_POST[$value]));
+            $_POST[$value] = htmlentities(strip_tags($_POST[$value])); //Convertit tous les caractères éligibles en entités HTML
         }
 
 

@@ -14,7 +14,24 @@ use Doctrine\ORM\Mapping\ClassMetadata;
 use App\Routes\Router;
 use App\Controllers\BLogController;
 
+$router = new Router($_GET['url']);
 
+$router->post("/User/", "App\Controllers\UserController@add"); //Ajout User
+$router->get("/User/", "App\Controllers\UserController@add");
+
+$router->post("/Admin/", "App\Controllers\AdminController@add"); //Ajout Admin
+$router->get("/Admin/", "App\Controllers\AdminController@add");
+
+$router->get("/User/:id", "App\Controllers\UserController@modify"); // modifier User
+$router->post("/User/:id", "App\Controllers\UserController@modify"); 
+
+$router->get("/Admin/:id", "App\Controllers\AdminController@modify"); //Modifier Admin
+$router->post("/Admin/:id", "App\Controllers\AdminController@modify"); 
+
+$router->get("/User/:id", "App\Controllers\UserController@delete");
+$router->delete("/User/:id", "App\Controllers\UserController@delete");//suppression
+
+$router->run(); // pour verifier si les routes match
 
 //$user = new User(2, "Jean", "Toto", 33, "roiuhjezrtyht@gmail.com", 7); // //création nouvelle utilisateur
 //$entityManager->persist($user);
@@ -72,9 +89,12 @@ use App\Controllers\BLogController;
 
 
 
+//$router->delete("/Article/:id", "App\Controllers\BLogController@delete");
+//$router->delete("/Member/", "App\Controllers\BLogController@delete");
+//$router->delete("/Admin/", "App\Controllers\BLogController@delete"); //postman
+//$router->put("/Article/:id", "App\Controllers\BLogController@show"); //postman
 
-$router = new Router($_GET['url']);
-
+//test pas encore à jour 
 $router->get("/", "App\Controllers\BLogController@test"); // pour avoir la racine du site
 $router->get("/posts/:id", "App\Controllers\BLogController@show");// pour afficher id 
 $router->get("/Admin/", "App\Controllers\BLogController@index"); //URL
@@ -86,31 +106,3 @@ $router->get("/User/:id", "App\Controllers\UserController@show");
 $router->post("/Article/", "App\Controllers\BLogController@index");
 //$router->post("/Member/", "App\Controllers\BLogController@add");
 $router->post("/User/:id", "App\Controllers\UserController@show");
-
-
-$router->post("/User/", "App\Controllers\UserController@add"); //Ajout User
-$router->get("/User/", "App\Controllers\UserController@add");
-
-$router->post("/Admin/", "App\Controllers\AdminController@add"); //Ajout Admin
-$router->get("/Admin/", "App\Controllers\AdminController@add");
-
-
-//$router->put("/Admin/", "App\Controllers\BLogController@modify"); //postman
-//$router->put("/Article/:id", "App\Controllers\BLogController@show");
-//$router->put("/Member/", "App\Controllers\BLogController@modify");
-
-$router->get("/User/:id", "App\Controllers\UserController@modify"); // modifier User
-$router->post("/User/:id", "App\Controllers\UserController@modify"); 
-
-$router->get("/Admin/:id", "App\Controllers\AdminController@modify"); //Modifier Admin
-$router->post("/Admin/:id", "App\Controllers\AdminController@modify"); 
-
-//$router->delete("/Admin/", "App\Controllers\BLogController@delete"); //postman
-//$router->delete("/Article/:id", "App\Controllers\BLogController@delete");
-//$router->delete("/Member/", "App\Controllers\BLogController@delete");
-
-
-$router->get("/User/:id", "App\Controllers\UserController@delete");
-$router->delete("/User/:id", "App\Controllers\UserController@delete");//suppression
-
-$router->run(); // pour verifier si les routes match

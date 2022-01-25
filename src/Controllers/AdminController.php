@@ -65,16 +65,16 @@ class AdminController
 
     public function add() //ajout article methode post
     {
-      //  if (!empty($_POST)) Me casse mon code
+        //  if (!empty($_POST)) Me casse mon code
         foreach (self::NEEDLES as $value) {
             if (!array_key_exists($value, $_POST)) {
                 $_SESSION["error"] = "Il manque des champs à remplir";
-                
+
                 header("location: http://localhost:8888/src/vues/addAdmin.php");
                 exit;
             }
 
-            $_POST[$value] = htmlentities(strip_tags( $_POST[$value]));
+            $_POST[$value] = htmlentities(strip_tags($_POST[$value]));
         }
 
 
@@ -87,58 +87,53 @@ class AdminController
 
 
         header("location: http://localhost:8888/src/vues/addAdmin.php");
-        
     }
 
 
 
 
 
-   public function modify(string $id)
-    
+    public function modify(string $id)
+
     {
         echo "test pour voir si cela fonctionne";
 
-            $entityManager = EH::getRequireEntityManager();
-            $Adminrepository = new EntityRepository($entityManager, new ClassMetadata("App\Entity\Admin"));
+        $entityManager = EH::getRequireEntityManager();
+        $Adminrepository = new EntityRepository($entityManager, new ClassMetadata("App\Entity\Admin"));
 
-            $admin = $Adminrepository->find($id);
+        $admin = $Adminrepository->find($id);
 
-    if (!empty($_POST["firstname"])){
-        $firstname = strip_tags($_POST["firstname"]);
-        if (trim($_POST["firstname"]) === ""){
+        if (!empty($_POST["firstname"])) {
+            $firstname = strip_tags($_POST["firstname"]);
+            if (trim($_POST["firstname"]) === "") {
 
-            $error = "Le champ doit être remplie";
-            echo $error;
-            die();
+                $error = "Le champ doit être remplie";
+                echo $error;
+                die();
+            }
+
+            $admin->setFirstname($firstname);
+
+            $entityManager->persist($admin);
+            $entityManager->flush();
         }
-       
-        $admin->setFirstname($firstname);
+
+
+        include __DIR__ . "/../vues/modifyAdmin.php";
+        exit;
+    }
+
+
+
+
+    public function delete($id)
+    {
+        $entityManager = EH::getRequireEntityManager();
+        $repository = new EntityRepository($entityManager, new ClassMetadata("App\Entity\Admin"));
+
+        $admin = $repository->find($id);
 
         $entityManager->persist($admin);
         $entityManager->flush();
-
     }
-
-                
-                include __DIR__."/../vues/modifyAdmin.php";
-                exit;
-                
-           }
-}  
-    
-
-
-   // public function delete($id)
-//{
-     //       $entityManager = EH::getRequireEntityManager();
-     //       $repository = new EntityRepository($entityManager, new ClassMetadata("App\Entity\Admin"));
-
-     //       $admin = $repository->find($id);
-            
-      //      $entityManager->persist($user);
-      //      $entityManager->flush();
-      //  }
-
-   // }
-
+}

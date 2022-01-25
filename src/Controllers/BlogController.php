@@ -4,8 +4,6 @@ namespace App\Controllers;
 
 use App\Entity\Article;
 use App\Entity\Member;
-use App\Entity\User;
-use App\Entity\Admin;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Mapping\ClassMetadata;
