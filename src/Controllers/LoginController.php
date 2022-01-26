@@ -8,13 +8,14 @@ use Doctrine\ORM\Mapping\ClassMetadata;
 use App\Routes\Router;
 
 
-const NEEDS = [
-    'mail',
-    'password'
-];
 
 class LoginController
 {
+
+    const NEEDS = [
+        'mail',
+        'password'
+    ];
 
         public function login()
         {
@@ -23,7 +24,7 @@ class LoginController
             if (empty($_POST)){
                 include("/../vues/login.php");
             }
-            if (!empt($_POST)){
+            if (!empty($_POST)){
                 foreach (self::NEEDS as $value){
                     if (!array_key_exists($value, $_POST))  {
                         echo "La valeur n'existe pas!!";
@@ -41,7 +42,7 @@ class LoginController
             $alogin = $repository->findBy(['mail'=>$_POST['mail']]);
 
             if (empty($login)) {
-                echo "Tu n'hesiste pas!!";
+                echo "Tu n'existe pas dsl!!";
                // header // rajouter un chemin pour la l'inscription
                 die();
             }
@@ -51,10 +52,11 @@ class LoginController
             }
             $_SESSION ['mail'] = $_POST['mail'];
             $_SESSION ['prenom'] = $alogin[0]->getPrenom();
-            $_SESSION ['type'] = strtolower(stn_replace(get_class($alogin[0])));
+            $_SESSION ['type'] = strtolower(stn_replace(get_class("App\Entity\\",'',get_class($alogin[0]))));
                     
         }
 
         header("location: http://localhost:8888/src/vues/Article.php");
     }  
 }
+

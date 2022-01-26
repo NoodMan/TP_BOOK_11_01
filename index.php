@@ -1,5 +1,6 @@
 <?php
 
+session_start();
 
 require_once('vendor/autoload.php');
 require_once('bootstrap.php');
@@ -18,25 +19,41 @@ use App\Routes\Router;
 
 $router = new Router($_GET['url']);
 
-$router->post("/User/", "App\Controllers\UserController@add"); //Ajout User
-$router->get("/User/", "App\Controllers\UserController@add");
+if (!empty($_SESSION['type'])) {
+   $_SESSION['type'] = "";
+}
+switch ($_SESSION['type']) {
+   case 'Admin':
+      $router->get('/livres', 'App\Controllers\LivreController@afficherLivres'); // /!\ à modifier
+      break;
 
-$router->post("/Admin/", "App\Controllers\AdminController@add"); //Ajout Admin
-$router->get("/Admin/", "App\Controllers\AdminController@add");
+   case 'User':
+      break;
 
-$router->get("/User/:id", "App\Controllers\UserController@modify"); // modifier User
-$router->post("/User/:id", "App\Controllers\UserController@modify"); 
+   default:
 
-$router->get("/Admin/:id", "App\Controllers\AdminController@modify"); //Modifier Admin
-$router->post("/Admin/:id", "App\Controllers\AdminController@modify"); 
+      $router->post("/User/", "App\Controllers\UserController@add"); //Ajout User
+      $router->get("/User/", "App\Controllers\UserController@add");
 
-$router->get("/deleteUser/:id", "App\Controllers\UserController@delete");
-$router->post("/deleteUser/:id", "App\Controllers\UserController@delete");//suppression ne fonctionne pas 
+      $router->post("/Admin/", "App\Controllers\AdminController@add"); //Ajout Admin
+      $router->get("/Admin/", "App\Controllers\AdminController@add");
 
-$router->post("/", "App\Controllers\AdminController@login"); //Connexion
-$router->get("/", "App\Controllers\AdminController@login"); 
+      $router->get("/User/:id", "App\Controllers\UserController@modify"); // modifier User
+      $router->post("/User/:id", "App\Controllers\UserController@modify");
 
-$router->run(); // pour verifier si les routes match
+      $router->get("/Admin/:id", "App\Controllers\AdminController@modify"); //Modifier Admin
+      $router->post("/Admin/:id", "App\Controllers\AdminController@modify");
+
+      $router->get("/deleteUser/:id", "App\Controllers\UserController@delete");
+      $router->post("/deleteUser/:id", "App\Controllers\UserController@delete"); //suppression ne fonctionne pas 
+
+      $router->post("/", "App\Controllers\AdminController@login"); //Connexion
+      $router->get("/", "App\Controllers\AdminController@login");
+
+      break;
+
+      $router->run(); // pour verifier si les routes match
+}
 
 //$user = new User(2, "Jean", "Toto", 33, "roiuhjezrtyht@gmail.com", 7); // //création nouvelle utilisateur
 //$entityManager->persist($user);
@@ -56,13 +73,13 @@ $router->run(); // pour verifier si les routes match
 //$entityManager->flush();
 
 //$entityManager = EH::getRequireEntityManager();
-       // $repository = new EntityRepository($entityManager, new ClassMetadata//("App\Entity\User"));
-       // $aUser = $repository->findAll();
-        
-       // foreach ($aUser as $oUser){
-       //     echo($oUser->getPersonal_data());
+// $repository = new EntityRepository($entityManager, new ClassMetadata//("App\Entity\User"));
+// $aUser = $repository->findAll();
 
-       // }
+// foreach ($aUser as $oUser){
+//     echo($oUser->getPersonal_data());
+
+// }
 
 
 
@@ -77,10 +94,10 @@ $router->run(); // pour verifier si les routes match
 //$aUsers = $UserRepository->findAll();
 
 //foreach ($aUsers as $oUser) {
-   //echo $oUser;
-  // $oUser->getEmail();
-   //var_dump($oUser->getEmail());// pour verifier
-   //echo $oUser->getEmail();
+//echo $oUser;
+// $oUser->getEmail();
+//var_dump($oUser->getEmail());// pour verifier
+//echo $oUser->getEmail();
 
 //}
 
@@ -101,7 +118,7 @@ $router->run(); // pour verifier si les routes match
 
 //test pas encore à jour 
 //$router->get("/", "App\Controllers\BLogController@test"); // pour avoir la racine du site
-$router->get("/posts/:id", "App\Controllers\BLogController@show");// pour afficher id 
+$router->get("/posts/:id", "App\Controllers\BLogController@show"); // pour afficher id 
 $router->get("/Admin/", "App\Controllers\BLogController@index"); //URL
 $router->get("/Article/", "App\Controllers\BLogController@index");
 $router->get("/Member/:id", "App\Controllers\UserController@show");

@@ -13,10 +13,10 @@ class User extends Member
   /** @ORM\Column(type="integer") */
     private int $personal_data;
 
-    public function __construct(int $s, string $f, string $l, int $a, string $m, int $personal_data)
+    public function __construct(int $s, string $f, string $l, int $a, string $m, int $personal_data, $password)
     {
 
-        parent::__construct($s, $f, $l, $a, $m);
+        parent::__construct($s, $f, $l, $a, $m, $personal_data, $password);
         
         $this->personal_data = $personal_data;
     }

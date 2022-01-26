@@ -12,9 +12,9 @@ class Admin extends Member{
     
     private int $level;
 
-    public function __construct(int $serviceID, string $firstname, string $lastname, int $age, string $mail, int $level){ 
+    public function __construct(int $serviceID, string $firstname, string $lastname, int $age, string $mail, int $level, string $password){ 
 
-        parent::__construct ($serviceID, $firstname, $lastname, $age, $mail);
+        parent::__construct ($serviceID, $firstname, $lastname, $age, $mail, $password);
         
         $this->level = $level;
     }

@@ -152,5 +152,26 @@ class Member  {
 
         return $this;
     }
+    
+
+    /**
+     * Get the value of password
+     */ 
+    public function getPassword() : string
+    {
+        return $this->password;
+    }
+
+    /**
+     * Set the value of password
+     *
+     * @return  self
+     */ 
+    public function setPassword($password) : self
+    {
+        $this->password = $password;
+
+        return $this;
+    }
 }
 
