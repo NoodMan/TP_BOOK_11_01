@@ -118,7 +118,7 @@ class AdminController
             $admin->setServiceID((int)$_POST["serviceId"]);
             $admin->setFirstname($_POST["firstname"]);
             $admin->setLastname($_POST["lastname"]);
-            $admin->setAge((int)$_POST["Age"]);
+            $admin->setAge((int)$_POST["age"]);
             $admin->setEmail($_POST["mail"]);
             $admin->setLevel((int)$_POST["level"]);
 

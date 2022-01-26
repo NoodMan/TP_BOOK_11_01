@@ -49,12 +49,8 @@
         <label for="mail">Mail: </label>
         <input type="text" name="mail" id="mail" class="radius" value="<?= $admin->getEmail() ?>" required />
 
-
         <label for="level">Level: </label>
         <input type="text" name="level" id="level" class="radius" value="<?= $admin->getLevel() ?>" required />
-
-
-        ====>
 
         <input type="submit" class="radius" value="ENREGISTRER LES MODIFICATIONS">
     </form>
