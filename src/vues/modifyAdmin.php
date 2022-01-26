@@ -49,10 +49,15 @@
         <label for="mail">Mail: </label>
         <input type="text" name="mail" id="mail" class="radius" value="<?= $admin->getEmail() ?>" required />
 
-        <label for="level">Level: </label>
-        <input type="text" name="level" id="level" class="radius" value="<?= $admin->getLevel() ?>" required />
+        <br>
+        ====>
 
         <input type="submit" class="radius" value="ENREGISTRER LES MODIFICATIONS">
+
+        <!-- <label for="level">Level: </label>  NE FONCTIONNE PAS NIKE --> 
+         <!-- <input type="int" name="level" id="level" class="radius" value="<?= $admin->getLevel() ?>" required /> -->    
+         <!-- raccourcis command + shift + : = commentaire  -->
+
     </form>
 </body>
 

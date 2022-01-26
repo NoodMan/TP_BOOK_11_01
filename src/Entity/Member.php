@@ -42,14 +42,19 @@ class Member  {
     /** @ORM\Column(length=150)*/
     private string $mail;
 
+    /** @ORM\Column(length=255)*/
+    private string $password;
 
-    public function __construct (int $s, string $f, string $l, int $a, string $m){ 
+
+
+    public function __construct (int $s, string $f, string $l, int $a, string $m, string $password, ){ 
         
         $this->serviceID = $s;
         $this->firstname = $f;
         $this->lastname = $l;
         $this->age = $a;
         $this->mail = $m;
+        $this->password = password_hash($password, PASSWORD_DEFAULT); 
         
     }
 

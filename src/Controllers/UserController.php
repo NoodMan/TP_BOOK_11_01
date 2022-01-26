@@ -69,7 +69,7 @@ class UserController
         
         foreach (self::NEEDLES as $value) {
             if (!empty($_POST)){
-                include __DIR__ . "/../vues/modifyAdmin.php";
+               
             }
             if (!array_key_exists($value, $_POST)) {
                 $_SESSION["error"] = "Il manque des champs à remplir";
@@ -108,7 +108,7 @@ class UserController
                     die();
                 }
 
-                $_POST[$value] = trim(htmlentities(strip_tags($_POST[$value])));
+                $_POST[$value] = trim(htmlentities(strip_tags($_POST[$value]))); // teste de deplacer ça!!
 
                 if ($_POST[$value] === "") {
                     echo "Il manque des champs...";

@@ -11,8 +11,10 @@ use App\Entity\Admin;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Mapping\ClassMetadata;
-use App\Routes\Router;
 use App\Controllers\BLogController;
+use App\Routes\Router;
+
+
 
 $router = new Router($_GET['url']);
 
@@ -30,6 +32,9 @@ $router->post("/Admin/:id", "App\Controllers\AdminController@modify");
 
 $router->get("/deleteUser/:id", "App\Controllers\UserController@delete");
 $router->post("/deleteUser/:id", "App\Controllers\UserController@delete");//suppression ne fonctionne pas 
+
+$router->post("/", "App\Controllers\AdminController@login"); //Connexion
+$router->get("/", "App\Controllers\AdminController@login"); 
 
 $router->run(); // pour verifier si les routes match
 
@@ -95,7 +100,7 @@ $router->run(); // pour verifier si les routes match
 //$router->put("/Article/:id", "App\Controllers\BLogController@show"); //postman
 
 //test pas encore à jour 
-$router->get("/", "App\Controllers\BLogController@test"); // pour avoir la racine du site
+//$router->get("/", "App\Controllers\BLogController@test"); // pour avoir la racine du site
 $router->get("/posts/:id", "App\Controllers\BLogController@show");// pour afficher id 
 $router->get("/Admin/", "App\Controllers\BLogController@index"); //URL
 $router->get("/Article/", "App\Controllers\BLogController@index");

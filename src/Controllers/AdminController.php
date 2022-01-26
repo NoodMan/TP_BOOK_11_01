@@ -79,7 +79,6 @@ class AdminController
         }
 
 
-
         $admin = new Admin((int) $_POST["serviceID"], $_POST["firstname"], $_POST["lastname"], (int) $_POST["age"], $_POST["mail"], (int) $_POST["level"]);
 
         $entityManager = EH::getRequireEntityManager();
