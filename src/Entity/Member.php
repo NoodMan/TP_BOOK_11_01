@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use App\Interfaces\UserInter;
+
 use Doctrine\ORM\Mapping as ORM;
 
 /** @ORM\Entity

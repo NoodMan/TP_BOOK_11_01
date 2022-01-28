@@ -19,8 +19,6 @@ class LoginController
 
         public function login()
         {
-
-
             if (empty($_POST)){
                 include("/../vues/login.php");
             }
@@ -52,9 +50,9 @@ class LoginController
             }
             $_SESSION ['mail'] = $_POST['mail'];
             $_SESSION ['prenom'] = $alogin[0]->getPrenom();
-            $_SESSION ['type'] = strtolower(stn_replace(get_class("App\Entity\\",'',get_class($alogin[0]))));
+            $_SESSION['type'] = strtolower(str_replace("App_Entity\\","",get_class($alogin[0])));    // on enleve le debut pour le remplacer par le nom de l'objet
                     
-        }
+        }            
 
         header("location: http://localhost:8888/src/vues/Article.php");
     }  

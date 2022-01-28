@@ -22,5 +22,6 @@
 
     </form>
 </body>
-
+<!-- pour l'inscription c'est comme un ajout de user -->
 </html>
+

@@ -23,11 +23,11 @@ if (!empty($_SESSION['type'])) {
    $_SESSION['type'] = "";
 }
 switch ($_SESSION['type']) {
-   case 'Admin':
-      $router->get('/livres', 'App\Controllers\LivreController@afficherLivres'); // /!\ à modifier
+   case 'User':
+      $router->get("/", "App\Controllers\AdminController@login"); // /!\ à modifier
       break;
 
-   case 'User':
+   case 'Admin':
       break;
 
    default:

@@ -33,7 +33,9 @@ class UserController
         //print($oUser->getFullName());
         //var_dump($oUser);
         //die();
-
+ 
+       // $aCat = $repository->findAll(); // si celui ligne 33 print ne fonctionne pas
+       // print $aCat; 
 
         //$entityManager = EH::getRequireEntityManager();
         // $repository = new EntityRepository($entityManager, new ClassMetadata//("App\Entity\User"));
